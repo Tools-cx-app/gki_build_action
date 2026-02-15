@@ -7,7 +7,7 @@
   "lxc_enable": "false",
   "stock_config": "false",
   "baseband_guard": "false",
-  "debug": "true",
+  "debug": "false",
   "mountify": "true",
   "key": "ak3-5.10_esk"
 }
