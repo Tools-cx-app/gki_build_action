@@ -72,10 +72,10 @@ jobs:
         id: ccache-restore
         with:
           path: ${{ env.CCACHE_DIR }}
-          key: ccache-esk-${{ env.KERNEL_VERSION }}-${{ env.KEY }}
+          key: ccache-esk-${{ env.KERNEL_VERSION }}-${{ env.KEY }}-${{ github.sha }}
           restore-keys: |
-            ccache-esk-${{ env.KERNEL_VERSION }}-${{ env.KEY }}
-            ccache-esk--
+            ccache-esk-${{ env.KERNEL_VERSION }}-${{ env.KEY }}-
+
 
       - name: 初始化并配置 ccache
         run: |
