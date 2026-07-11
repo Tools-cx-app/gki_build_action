@@ -19,6 +19,11 @@ on:
         required: true
         type: boolean
         default: false
+      cve_2026_43499:
+        description: '是否应用 CVE-2026-43499 rtmutex 修复链'
+        required: true
+        type: boolean
+        default: true
       droidspaces:
         description: "Droidspaces 容器支持"
         required: false
@@ -129,6 +134,16 @@ jobs:
             sed -i 's/ -dirty//g' "$f"
             sed -i '$i res=$(echo "$res" | sed '\''s/-dirty//g'\'')' "$f"
           done
+
+      - name: 应用 CVE-2026-43499 rtmutex 修复链
+        if: inputs.cve_2026_43499
+        run: |
+          cd kernel_workspace/common
+          # Mainline: 3bfdc63936dd (CVE-2026-43499)
+          # Follow-up: 40a25d59e85b (CVE-2026-53163)
+          curl -fLSs "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/patches/cve-2026-43499-rtmutex-5.10.patch" -o cve-2026-43499.patch
+          patch --dry-run -p1 --fuzz=0 < cve-2026-43499.patch
+          patch -p1 --forward --fuzz=0 < cve-2026-43499.patch
 
       - name: Fetch config script
         run: |
@@ -453,6 +468,7 @@ jobs:
           BBG: ${{ inputs.baseband_guard }}
           MOUNTIFY: ${{ inputs.tmpfs }}
           BETTER_NET: ${{ inputs.better_net }}
+          CVE_2026_43499: ${{ inputs.cve_2026_43499 }}
         run: |
           if [ -z ${{ secrets.BOT_TOKEN }} ]; then
             exit 0

@@ -17,6 +17,7 @@ LTO = os.environ.get("LTO")
 UNSHARE = os.environ.get("UNSHARE")
 NTSYNC = os.environ.get("NTSYNC")
 RESUKISU = os.environ.get("RESUKISU")
+CVE_2026_43499 = os.environ.get("CVE_2026_43499")
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 CHAT_ID = int(os.environ.get("CHAT_ID"))
@@ -35,6 +36,7 @@ Mountify support: {mountify}
 droidspaces: {droidspaces}
 ntsync: {ntsync}
 better net support: {better_net}
+CVE-2026-43499 rtmutex fix: {cve_2026_43499}
 ```
 Please follow @esk_gki_build !
 #GKI2 #ESK
@@ -54,6 +56,7 @@ def get_caption():
         ntsync=NTSYNC,
         bbg=BBG,
         better_net=BETTER_NET,
+        cve_2026_43499=CVE_2026_43499,
         run_url=RUN_URL,
     )
     return msg
