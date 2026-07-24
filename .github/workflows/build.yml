@@ -485,7 +485,8 @@ jobs:
           path: ${{ github.workspace }}/kernel_workspace/ccache.log
 
       - name: 上传 ZIP 工件
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: AnyKernel3
           path: ${{ github.workspace }}/kernel_workspace/*.zip
+          archive: false
